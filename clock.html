@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>clock</title>
+    <style>
+        .clock{
+            width:300px;
+            height:300px;
+            border:10px solid white;
+            /*opacity: 0;*/
+            border-radius: 50%;
+            /*box-sizing: border-box;*/
+            position: fixed;
+            right:0;left:0;top:0;bottom:0;
+            margin:auto;
+            background:url(cl.jpg);
+        }
+        .zhong{
+            box-sizing: border-box;
+            position: absolute;
+            top:144px;
+            left:145px;
+            z-index:20;
+            /*marign:auto;*/
+            width:10px;
+            height:10px;
+            border:4px solid black;
+            border-radius:50%;
+        }
+        /*.shijian{*/
+            /*width:200px;*/
+            /*height:30px;*/
+            /*border:1px solid black;*/
+            /*margin:50px auto;*/
+            /*text-align: center;*/
+        /*}*/
+
+    </style>
+    <script>
+        window.onload=function(){
+            var clock=document.getElementsByClassName("clock")[0];
+            createMark();
+            var date=new Date();
+            var h=date.getHours();
+            var m=date.getMinutes();
+            var s=date.getSeconds();
+            var hc=createzhen(90,10,"black",30*h-90+(6*m)/12);
+            var mc=createzhen(110,6,"black",6*m-90);
+            var sc=createzhen(130,3,"red",6*s-90);
+//            var hc=createzhen(70,10,"green",30);
+//            var mc=createzhen(90,7,"black",60);
+//            var sc=createzhen(120,4,"red",90);
+            setInterval(function(){
+                var date=new Date();
+                var h=date.getHours();
+                var m=date.getMinutes();
+                var s=date.getSeconds();
+                hc.style.transform="translate(150px,"+hc.t+"px) rotate("+(30*h-90+(6*m)/12)+"deg)";
+                mc.style.transform="translate(150px,"+mc.t+"px) rotate("+(6*m-90)+"deg)";
+                sc.style.transform="translate(150px,"+sc.t+"px) rotate("+(6*s-90)+"deg)";
+            },1000);
+            function createMark(){
+                for(var i=0;i<60;i++){
+                    var div=document.createElement("div");
+                    var w, h, l;
+                    if(i%5==0){
+                        w=6;
+                        h=20;
+                    }else{
+                        w=3;
+                        h=10;
+                    }
+                    l=(300-w)/2;
+         
+                    div.style.cssText="width:"+w+"px;height:"+h+"px;background:black;opacity:0;position:absolute;top:0;left:0;";
+                    clock.appendChild(div);
+                    div.style.transform="translate("+l+"px,0px) rotate("+i*6+"deg) ";
+                    div.style.transformOrigin="center 150px";
+                }
+            }
+//            createzhen();
+            function createzhen(w,h,c,a){
+                var div=document.createElement("div");
+                div.style.cssText="width:"+w+"px;height:"+h+"px;border-radius:10% 40% 40% 10%;background:"+c+";position:absolute;top:0;left:-20px;";
+                clock.appendChild(div);
+                t=(300-h)/2;
+                div.t=t;
+                div.style.transform="translate(150px,"+t+"px) rotate("+a+"deg)";
+                div.style.transformOrigin="20px center";
+                return div;
+            }
+
+//    setInterval(function(){
+//        var shijian=document.getElementsByClassName("shijian")[0];
+//
+//        var time=new Date();
+//        var h=time.getHours();
+////        alert(h);
+//        var m=time.getMinutes();
+//        var s=time.getSeconds();
+//        if(s<10){
+//            alert(1);
+//            shijian.innerHTML=""+h+":"+m+":"+("+0+")+s+"";
+//        }
+//        shijian.innerHTML=""+h+":"+m+":"+s+"";
+//    },1000)
+
+        }
+    </script>
+</head>
+<body style="background:url(cl.gif)">
+    <div class="clock">
+        <div class="zhong"></div>
+    </div>
+<div class="shijian"></div>
+</body>
+</html>
